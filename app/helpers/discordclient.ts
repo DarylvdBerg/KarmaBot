@@ -3,12 +3,10 @@ import { Collection } from "discord.js";
 const { Client, Intents } = require('discord.js');
 export default class DiscordClient {
     private client;
-    private commands;
     private static instance: DiscordClient;
 
     private constructor(){
-        this.client = new Client({intents: [Intents.FLAGS.GUILDS]});
-        this.commands = new Collection();
+        this.client = new Client({intents: [Intents.FLAGS.GUILDS, Intents.FLAGS.GUILD_MESSAGES]});
     }
 
     public static getInstance() {
@@ -21,13 +19,5 @@ export default class DiscordClient {
 
     get() {
         return this.client;
-    }
-
-    getCommands() {
-        return this.commands;
-    }
-
-    addCommand(name: string, command: string) {
-        this.commands.set(name, command);
     }
 }
