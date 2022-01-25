@@ -15,9 +15,7 @@ const commandFiles = fs.readdirSync(commandDir).filter(file => file.endsWith('.j
 
 for(const file of commandFiles) {
     const command = require(`./commands/${file}`);
-    console.log(command);
     client.commands.set(command.name, command);
-    console.log(client.commands);
 }
 
 client.once('ready', () => {
