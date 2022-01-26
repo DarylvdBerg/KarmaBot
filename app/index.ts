@@ -1,5 +1,5 @@
-// import KarmaDao from "./database/karmaDao";
-const { Client, Intents, Discord } = require("discord.js");
+import KarmaDao from "./database/karmaDao";
+const { Client, Intents, Collection } = require("discord.js");
 
 const fs = require("fs");
 const path = require("path");
@@ -9,9 +9,9 @@ const client = new Client({
   intents: [Intents.FLAGS.GUILDS, Intents.FLAGS.GUILD_MESSAGES],
 });
 client.commandPrefix = "k!";
-client.commands = new Discord.Collection();
+client.commands = new Collection();
 
-// const karmaDao = new KarmaDao();
+const karmaDao = KarmaDao.getInstance();
 
 const commandDir = path.join(__dirname, "./commands");
 const commandFiles = fs
@@ -24,7 +24,7 @@ for (const file of commandFiles) {
 }
 
 client.once("ready", () => {
-  // karmaDao.create();
+  karmaDao.create();
   console.log("Bot is ready");
 });
 
@@ -35,8 +35,9 @@ client.on("messageCreate", (message) => {
   const command = args.shift().toLowerCase();
 
   try {
-    client.commands.get(command).execute(message, args);
+    client.commands.get(command).execute(message, args, karmaDao);
   } catch (error) {
+    console.log(error);
     message.channel.send("Karma is a bitch.");
   }
 });
