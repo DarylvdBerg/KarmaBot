@@ -1,3 +1,4 @@
+// import KarmaDao from "./database/karmaDao";
 import DiscordClient from "./helpers/discordclient";
 const Discord = require("discord.js");
 
@@ -7,8 +8,9 @@ const { token } = require("../config.json");
 
 const client = DiscordClient.getInstance().get(); 
 client.commandPrefix = "k!";
-
 client.commands = new Discord.Collection();
+
+// const karmaDao = new KarmaDao();
 
 const commandDir = path.join(__dirname, "./commands");
 const commandFiles = fs.readdirSync(commandDir).filter(file => file.endsWith('.js'));
@@ -19,6 +21,7 @@ for(const file of commandFiles) {
 }
 
 client.once('ready', () => {
+    // karmaDao.create();
     console.log('Bot is ready');
 });
 
