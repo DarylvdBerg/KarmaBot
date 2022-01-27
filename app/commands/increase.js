@@ -21,7 +21,7 @@ module.exports = {
       let currentPoints = db.get(userId)["points"];
       let newPoints = currentPoints + 1;
 
-      db.update(id, newPoints);
+      db.update(userId, newPoints);
       message.channel.send(
         `${message.author.name} has increased your karma points, your new total is: ${newPoints}`
       );
