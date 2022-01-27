@@ -2,18 +2,9 @@ const SQLite = require("better-sqlite3");
 
 export default class KarmaDao {
   private db: any;
-  private static instance: KarmaDao;
 
-  private constructor() {
+  public constructor() {
     this.db = new SQLite("./karma.sqlite");
-  }
-
-  public static getInstance() {
-    if(!KarmaDao.instance) {
-      KarmaDao.instance = new KarmaDao();
-    }
-
-    return KarmaDao.instance;
   }
 
   create() {
@@ -24,15 +15,25 @@ export default class KarmaDao {
   }
 
   update(id: string, points: number) {
+    this.createUserIfNotExist(id);
     this.db
       .prepare(`UPDATE karma SET karma = ${points} WHERE id = ${id};`)
       .run();
   }
 
   get(id: string) {
+    this.createUserIfNotExist(id);
     const points = this.db
       .prepare(`SELECT points FROM karma WHERE id = ${id};`)
       .get();
     return points;
+  }
+
+  private createUserIfNotExist(id: string) {
+    const doesExists = this.db.prepare(`SELECT COUNT(*) FROM karma WHERE id = ${id};`).get();
+    console.log(doesExists);
+    if(doesExists <= 0){
+      this.db.prepare(`INSERT INTO karma (id, points) VALUES (${id}, 0);`).run();
+    }
   }
 }

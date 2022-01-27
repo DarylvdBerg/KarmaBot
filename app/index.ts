@@ -11,7 +11,7 @@ const client = new Client({
 client.commandPrefix = "k!";
 client.commands = new Collection();
 
-const karmaDao = KarmaDao.getInstance();
+const karmaDao = new KarmaDao();
 
 const commandDir = path.join(__dirname, "./commands");
 const commandFiles = fs
