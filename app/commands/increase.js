@@ -6,17 +6,24 @@ module.exports = {
     const userId = user.id;
 
     if (userId === message.author.id) {
-      message.channel.send("You cannot increase your own points >:(");
+      try {
+        let currentPoints = db.get(message.author.id)["points"];
+        currentPoints = currentPoints - 10;
+        db.update(message.author.id, currentPoints);
+        message.channel.send("You cannot increase your own points >:(. You're points are decreased by 10!");
+      } catch(error) {
+        message.channel.send("I would've decreased your points by 10, but something went wrong... bitch");
+      }
       return;
     }
 
-    let currentPoints = db.get(userId)["points"];
-    let newPoints = currentPoints + 1;
-
     try {
+      let currentPoints = db.get(userId)["points"];
+      let newPoints = currentPoints + 1;
+
       db.update(id, newPoints);
       message.channel.send(
-        `Karma points have been increased, your new total is: ${newPoints}`
+        `${message.author.name} has increased your karma points, your new total is: ${newPoints}`
       );
     } catch (error) {
       message.channel.send(
