@@ -35,7 +35,7 @@ client.on("messageCreate", (message) => {
   const command = args.shift().toLowerCase();
 
   try {
-    client.commands.get(command).execute(message, args, karmaDao);
+    client.commands.get(command).execute(message, args, karmaDao, client);
   } catch (error) {
     console.log(error);
     message.channel.send("Karma is a bitch.");
