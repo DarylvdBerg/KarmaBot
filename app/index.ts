@@ -1,9 +1,9 @@
 import KarmaDao from "./database/karmaDao";
+require('dotenv').config();
 const { Client, Intents, Collection } = require("discord.js");
 
 const fs = require("fs");
 const path = require("path");
-const { token } = require("../config.json");
 
 const client = new Client({
   intents: [Intents.FLAGS.GUILDS, Intents.FLAGS.GUILD_MESSAGES],
@@ -42,4 +42,4 @@ client.on("messageCreate", (message) => {
   }
 });
 
-client.login(token);
+client.login(process.env.token);

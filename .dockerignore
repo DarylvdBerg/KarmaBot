@@ -1,0 +1,4 @@
+node_modules
+*.sqlite
+*.md
+package-lock.json
