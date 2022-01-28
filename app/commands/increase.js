@@ -4,7 +4,6 @@ module.exports = {
   execute(message, args, db) {
     const user = message.mentions.users.first();
     const userId = user.id;
-    console.log(message.author);
 
     if (userId === message.author.id) {
       try {
