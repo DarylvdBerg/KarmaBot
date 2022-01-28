@@ -13,7 +13,7 @@ module.exports = {
     }
 
     try {
-      let currentPoints = db.get(userId)["points"];
+      let currentPoints = db.get(userId);
       let newPoints = currentPoints - 1;
       db.update(userId, newPoints);
       message.channel.send(
