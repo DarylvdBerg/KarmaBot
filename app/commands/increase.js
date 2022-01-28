@@ -4,6 +4,7 @@ module.exports = {
   execute(message, args, db) {
     const user = message.mentions.users.first();
     const userId = user.id;
+    console.log(message.author);
 
     if (userId === message.author.id) {
       try {
@@ -27,7 +28,7 @@ module.exports = {
 
       db.update(userId, newPoints);
       message.channel.send(
-        `${message.author.name} has increased your karma points, your new total is: ${newPoints}`
+        `${message.author.username} has increased your karma points, your new total is: ${newPoints}`
       );
     } catch (error) {
       message.channel.send(

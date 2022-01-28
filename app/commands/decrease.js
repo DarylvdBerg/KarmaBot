@@ -17,7 +17,7 @@ module.exports = {
       let newPoints = currentPoints - 1;
       db.update(userId, newPoints);
       message.channel.send(
-        `${message.author.name} has decreased your karma points, your new total is: ${newPoints}`
+        `${message.author.username} has decreased your karma points, your new total is: ${newPoints}`
       );
     } catch (error) {
       message.channel.send(

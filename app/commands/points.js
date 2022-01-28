@@ -1,5 +1,5 @@
 module.exports = {
-    name: "points",
+    name: "karma",
     description: "Get your current karma points",
     execute(message, args, db) {
         const id = message.author.id;
